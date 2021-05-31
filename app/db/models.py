@@ -4,7 +4,7 @@ import hashlib
 from sqlalchemy import Column, Integer, Text, ForeignKey, DateTime, String
 from sqlalchemy.orm import relationship
 
-from db_engine import Base
+from app.db.db_engine import Base
 
 
 class User(Base):

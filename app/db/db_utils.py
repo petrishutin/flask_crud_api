@@ -1,9 +1,9 @@
 import logging
-from datetime import datetime
 
-from db_engine import Session
-from models import User, ToDo
 from werkzeug.exceptions import BadRequest, InternalServerError, NotFound
+
+from app.db.db_engine import Session
+from app.db.models import User, ToDo
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +70,8 @@ def get_todos(username):
 
 def get_todo_instance(username: str, todo_id: str) -> ToDo:
     try:
-        todo = Session.query(ToDo).filter_by(user_name=username).filter_by(id=todo_id).one_or_none()
+        todo = Session.query(ToDo).filter_by(user_name=username).filter_by(
+            id=todo_id).one_or_none()
     except Exception as e:
         logger.error(f'Can get todos from DB: {e}')
         raise InternalServerError(f'Can not get todo {todo_id} for {username}')
