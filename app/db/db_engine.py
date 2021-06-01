@@ -11,5 +11,5 @@ Session = scoped_session(SessionLocal)
 Base = declarative_base()
 
 
-def initiate_db():
+def init_db():
     Base.metadata.create_all(bind=engine)
