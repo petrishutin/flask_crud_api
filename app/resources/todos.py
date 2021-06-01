@@ -28,8 +28,8 @@ class ToDos(Resource):
         if status not in ['TODO', 'INPROGRESS', 'DONE', 'CANCELED']:
             raise BadRequest(
                 "Status mast be 'TODO', 'INPROGRESS', 'DONE' or 'CANCELED'")
-        create_new_todo(username, text, status)
-        return {'result': 'New todo successfully created!'}, 201
+        todo_id = create_new_todo(username, text, status)
+        return {'result': todo_id}, 201
 
     @jwt_required()
     @check_username_match_resource_name

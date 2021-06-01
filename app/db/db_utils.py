@@ -40,7 +40,7 @@ def update_user_password(user: User, password):
         raise InternalServerError('Can not update user password')
 
 
-def create_new_todo(username: str, text: str, status: str) -> ToDo:
+def create_new_todo(username: str, text: str, status: str) -> int:
     new_todo = ToDo(user_name=username, text=text, status=status)
     Session.add(new_todo)
     try:
@@ -48,7 +48,7 @@ def create_new_todo(username: str, text: str, status: str) -> ToDo:
     except Exception as e:
         logger.error(f'Can not write new todo to DB: {e}')
         raise InternalServerError('Can not create new todo')
-    return new_todo
+    return new_todo.id
 
 
 def get_todos(username):
