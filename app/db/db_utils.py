@@ -1,3 +1,4 @@
+import datetime
 import logging
 
 from werkzeug.exceptions import BadRequest, InternalServerError, NotFound
@@ -98,6 +99,7 @@ def update_todo(username: str, todo_id: str, text=None, status=None):
         todo.text = text
     if status:
         todo.status = status
+    todo.update_time = datetime.datetime.now()
     try:
         Session.commit()
     except Exception as e:

@@ -1,5 +1,6 @@
 from flask import request
 from flask_restful import Resource
+from flask_apispec import MethodResource
 from werkzeug.exceptions import Conflict
 
 from app.db.db_utils import user_does_exists, create_user, get_user_instance, \
@@ -8,8 +9,7 @@ from app.utils.utils import check_fields, check_is_ascii, \
     check_passwords_mismatching, check_password_length
 
 
-class Users(Resource):
-    @check_fields(['username', 'password1', 'password2'])
+class Users(Resource, MethodResource):
     def post(self):
         """create new user"""
         username: str = request.json.get("username", None)
@@ -23,7 +23,6 @@ class Users(Resource):
         create_user(username, password1)
         return {'result': f'New user {username} successfully created'}, 201
 
-    @check_fields(['username', 'password1', 'password2', 'old_password'])
     def put(self):
         """update user password"""
         username: str = request.json.get("username", None)

@@ -1,8 +1,3 @@
-import pytest
-
-
-
-
 def test_post_login_200(client, new_user_data, request):
     response = client.post('/login', json=new_user_data)
     assert response.status_code == 200, response.data

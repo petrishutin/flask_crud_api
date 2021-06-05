@@ -1,4 +1,3 @@
-
 def test_post_new_user_200(new_user, client):
     data = {
         'username': new_user.username,
@@ -7,6 +6,7 @@ def test_post_new_user_200(new_user, client):
     }
     response = client.post('/users', json=data)
     assert response.status_code == 201, response.data
+
 
 def test_change_password_200(new_user, client):
     data = {

@@ -4,10 +4,10 @@ from flask_restful import Resource
 from werkzeug.exceptions import BadRequest
 from app.db.db_utils import get_user_instance
 from app.utils.utils import check_fields
+from flask_apispec import MethodResource, use_kwargs, marshal_with
 
 
-class LogIn(Resource):
-    @check_fields(['username', 'password'])
+class LogIn(Resource, MethodResource):
     def post(self):
         """get JWT token with payload"""
         username: str = request.json.get("username", None)
@@ -16,7 +16,7 @@ class LogIn(Resource):
         return {"access_token": create_access_token(identity=user)}, 200
 
 
-class LogOut(Resource):
+class LogOut(Resource, MethodResource):
     @jwt_required()
     def get(self):
         """LogOut"""
@@ -25,5 +25,3 @@ class LogOut(Resource):
             raise BadRequest('Bearer token required')
         current_app.config['JWT_BLOCK_LIST'].add(jti)
         return {"result": "Token revoked"}, 200
-
-
