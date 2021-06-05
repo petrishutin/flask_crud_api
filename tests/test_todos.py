@@ -19,6 +19,15 @@ def test_post_todo_201(client, access_token, new_user, request):
     request.config.cache.set('todo_id', todo_id)
 
 
+def test_post_invalid_status_422(client, access_token, new_user):
+    response = client.post(
+        f'/todos/{new_user.username}',
+        headers={'Authorization': f'Bearer {access_token}'},
+        json={'text': 'some text', 'status': 'ARRIVED'}
+    )
+    assert response.status_code == 422
+
+
 def test_get_todo_by_id_200(client, access_token, new_user, request):
     todo_id = request.config.cache.get('todo_id', None)
     response = client.get(

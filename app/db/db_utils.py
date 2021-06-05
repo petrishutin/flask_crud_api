@@ -82,7 +82,7 @@ def get_todo_instance(username: str, todo_id: str) -> ToDo:
 
 
 def get_todo(username: str, todo_id: str):
-    """get all todos"""
+    """get to-do by id"""
     todo = get_todo_instance(username, todo_id)
     return {
         'id': todo.id, 'text': todo.text, 'status': todo.status,
