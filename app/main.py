@@ -6,10 +6,12 @@ from app import config
 from app.db.db_engine import init_db
 from app.resources import Users, LogIn, LogOut, ToDosGetAllPost, ToDosGetByIdPutDelete
 from app.utils.jwt_auth import JWTAuth
+from app.utils.swagger import spec
 
 app = Flask(__name__)
 app.config.from_object(config)
 app.url_map.strict_slashes = False
+app.config.update({'APISPEC_SPEC': spec})
 
 jwt = JWTAuth(app)
 
@@ -26,6 +28,7 @@ docs.register(LogIn)
 docs.register(LogOut)
 docs.register(ToDosGetAllPost)
 docs.register(ToDosGetByIdPutDelete)
+
 
 if __name__ == '__main__':
     init_db()

@@ -69,7 +69,7 @@ def get_todos(username):
     return result
 
 
-def get_todo_instance(username: str, todo_id: str) -> ToDo:
+def get_todo_instance(username: str, todo_id: int) -> ToDo:
     try:
         todo = Session.query(ToDo).filter_by(user_name=username).filter_by(
             id=todo_id).one_or_none()
@@ -81,7 +81,7 @@ def get_todo_instance(username: str, todo_id: str) -> ToDo:
     return todo
 
 
-def get_todo(username: str, todo_id: str):
+def get_todo(username: str, todo_id: int):
     """get to-do by id"""
     todo = get_todo_instance(username, todo_id)
     return {
@@ -91,7 +91,7 @@ def get_todo(username: str, todo_id: str):
     }
 
 
-def update_todo(username: str, todo_id: str, text=None, status=None):
+def update_todo(username: str, todo_id: int, text=None, status=None):
     todo = get_todo_instance(username, todo_id)
     if not text and not status:
         raise BadRequest('Nothing to update')
@@ -109,7 +109,7 @@ def update_todo(username: str, todo_id: str, text=None, status=None):
     return todo
 
 
-def delete_todo(username: str, todo_id: str):
+def delete_todo(username: str, todo_id: int):
     todo = get_todo_instance(username, todo_id)
     try:
         Session.delete(todo)

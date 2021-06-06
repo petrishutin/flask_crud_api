@@ -2,12 +2,13 @@ from flask import request, current_app
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt
 from flask_restful import Resource
 from flask_apispec import MethodResource, use_kwargs
+from flask_apispec.annotations import doc
 
 from app.db.db_utils import get_user_instance
 from app.schemas import UserLogInSchema
 
-
 class LogIn(Resource, MethodResource):
+    @doc(tags=['LogIn'], description='method to login')
     @use_kwargs(UserLogInSchema, location='json')
     def post(self, **kwargs):
         """get JWT token with payload"""
@@ -18,6 +19,7 @@ class LogIn(Resource, MethodResource):
 
 
 class LogOut(Resource, MethodResource):
+    @doc(tags=['LogOut'], description='method to logout')
     @jwt_required()
     def get(self):
         """LogOut"""

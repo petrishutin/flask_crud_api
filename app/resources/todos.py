@@ -2,7 +2,7 @@ from flask import request
 from flask_jwt_extended import jwt_required
 from flask_restful import Resource
 from flask_apispec import MethodResource, marshal_with, use_kwargs
-
+from flask_apispec.annotations import doc
 
 from app.db.db_utils import get_todo, get_todos, create_new_todo, update_todo, delete_todo
 from app.utils.utils import check_username_match_resource_name
@@ -10,6 +10,7 @@ from app.schemas import ToDoSchemaIn, ToDoSchemaOut
 
 
 class ToDosGetByIdPutDelete(Resource, MethodResource):
+    @doc(tags=['TODOs'], description='Get ToDos by id')
     @jwt_required()
     @check_username_match_resource_name
     @marshal_with(ToDoSchemaOut)
@@ -17,6 +18,7 @@ class ToDosGetByIdPutDelete(Resource, MethodResource):
         """Get ToDos by id"""
         return get_todo(username, todo_id)
 
+    @doc(tags=['TODOs'], description='Update Todos by id')
     @jwt_required()
     @check_username_match_resource_name
     @use_kwargs(ToDoSchemaIn, location='json')
@@ -28,6 +30,7 @@ class ToDosGetByIdPutDelete(Resource, MethodResource):
                     status=status)
         return {'result': f'Todo id:{todo_id} successfully updated!'}, 202
 
+    @doc(tags=['TODOs'], description='Delete Todos by id')
     @jwt_required()
     @check_username_match_resource_name
     def delete(self, username, todo_id):
@@ -37,6 +40,7 @@ class ToDosGetByIdPutDelete(Resource, MethodResource):
 
 
 class ToDosGetAllPost(Resource, MethodResource):
+    @doc(tags=['TODOs'], description='Get list of ToDos')
     @jwt_required()
     @check_username_match_resource_name
     @marshal_with(ToDoSchemaOut(many=True))
@@ -44,6 +48,7 @@ class ToDosGetAllPost(Resource, MethodResource):
         """Get list of ToDos"""
         return get_todos(username)
 
+    @doc(tags=['TODOs'], description='Create new ToDos record')
     @jwt_required()
     @check_username_match_resource_name
     @use_kwargs(ToDoSchemaIn, location='json')

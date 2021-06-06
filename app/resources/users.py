@@ -3,6 +3,7 @@ from flask_restful import Resource
 from flask_apispec import MethodResource
 from werkzeug.exceptions import Conflict
 from flask_apispec import use_kwargs
+from flask_apispec.annotations import doc
 
 from app.db.db_utils import user_does_exists, create_user, get_user_instance, update_user_password
 from app.utils.utils import check_passwords_mismatching
@@ -10,6 +11,7 @@ from app.schemas import UserRegistrationSchemaIn, UserPasswordUpdateSchemaIn
 
 
 class Users(Resource, MethodResource):
+    @doc(tags=['Users'], description='Create new user with schema')
     @use_kwargs(UserRegistrationSchemaIn, location='json')
     def post(self, **kwargs):
         """create new user"""
@@ -22,6 +24,7 @@ class Users(Resource, MethodResource):
         create_user(username, password1)
         return {'result': f'New user {username} successfully created'}, 201
 
+    @doc(tags=['Users'], description='Update user`s password')
     @use_kwargs(UserPasswordUpdateSchemaIn, location='json')
     def put(self, **kwargs):
         """update user password"""
