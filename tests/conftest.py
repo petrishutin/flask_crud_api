@@ -19,7 +19,7 @@ def new_user():
     class NewRandomUser:
         def __init__(self):
             self.username = 'test' + str(uuid.uuid1()).replace('-', '')
-            self.password = 'pass' + str(uuid.uuid1()).replace('-', '')
+            self.password = ('pass' + str(uuid.uuid1()).replace('-', ''))[:19]
 
         def set_new_password(self, new_password):
             self.password = new_password
