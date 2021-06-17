@@ -14,7 +14,8 @@ def test_post_todo_201(client, access_token, new_user, request):
         json={'text': 'some text', 'status': 'TODO'}
     )
     assert response.status_code == 201
-    todo_id = response.json['result']
+    assert response.json['result'] == 'created'
+    todo_id = response.json['todo_id']
     assert isinstance(todo_id, int)
     request.config.cache.set('todo_id', todo_id)
 
@@ -65,7 +66,7 @@ def test_put_todo_202(client, access_token, new_user, request):
         json={'text': 'some text more', 'status': 'DONE'}
     )
     assert response.status_code == 202
-    assert response.json == {'result': f'Todo id:{todo_id} successfully updated!'}
+    assert response.json == {'todo_id': todo_id, 'result': 'updated'}
 
 
 def test_delete_todo_by_id_200(client, access_token, new_user, request):
@@ -75,4 +76,4 @@ def test_delete_todo_by_id_200(client, access_token, new_user, request):
         headers={'Authorization': f'Bearer {access_token}'},
     )
     assert response.status_code == 200
-    assert response.json == {'result': f'Todo id:{todo_id} successfully deleted!'}
+    assert response.json == {'todo_id': todo_id, 'result': 'deleted'}

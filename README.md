@@ -22,9 +22,3 @@ Content resources:
 - Framework: Flask 1.1
 - ORM: SQLAlchemy
 - Authorization: Flask-JWT-extended
-
-## Improve
-
-- Add logging
-- Add schemas + Validation(Marshmallow)
-- Add apispecs(swagger)

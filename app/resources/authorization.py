@@ -7,6 +7,7 @@ from flask_apispec.annotations import doc
 from app.db.db_utils import get_user_instance
 from app.schemas import UserLogInSchema
 
+
 class LogIn(Resource, MethodResource):
     @doc(tags=['LogIn'], description='method to login')
     @use_kwargs(UserLogInSchema, location='json')

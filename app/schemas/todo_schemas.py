@@ -13,9 +13,14 @@ class ToDoSchemaIn(Schema):
             raise UnprocessableEntity(f"Status mast be {current_app.config['TODO_STATUSES']}")
 
 
-class ToDoSchemaOut(Schema):
+class ToDoReadSchemaOut(Schema):
     id = fields.Integer()
-    text = fields.Str()
-    status = fields.Str()
-    create_time = fields.Str()
-    update_time = fields.Str()
+    text = fields.String()
+    status = fields.String()
+    create_time = fields.String()
+    update_time = fields.String()
+
+
+class ToDoCreateUpdateDeleteSchemaOut(Schema):
+    todo_id = fields.Integer()
+    result = fields.String()

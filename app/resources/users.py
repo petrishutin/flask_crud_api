@@ -1,9 +1,8 @@
 from flask import request
 from flask_restful import Resource
-from flask_apispec import MethodResource
-from werkzeug.exceptions import Conflict
-from flask_apispec import use_kwargs
+from flask_apispec import MethodResource, use_kwargs
 from flask_apispec.annotations import doc
+from werkzeug.exceptions import Conflict
 
 from app.db.db_utils import user_does_exists, create_user, get_user_instance, update_user_password
 from app.utils.utils import check_passwords_mismatching

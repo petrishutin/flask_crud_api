@@ -8,5 +8,5 @@ spec = APISpec(
     plugins=[MarshmallowPlugin()],
 )
 
-jwt_scheme = {"type": "http", "scheme": "bearer", "bearerFormat": "JWT"}
+jwt_scheme = {"type": "http", "in": "header", "scheme": "bearer", "bearerFormat": "JWT"}
 spec.components.security_scheme("jwt", jwt_scheme)
