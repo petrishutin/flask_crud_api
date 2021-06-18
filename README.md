@@ -1,6 +1,6 @@
 # Flask CRUD API service
 
-### Description
+## Description
 
 Example of simple service with CRUD (TODO notes) and JWT authorization
 
@@ -17,8 +17,14 @@ Content resources:
 - update TODO
 - delete TODO
 
-### Tech
+Use swagger2.0 at /swagger-ui
+
+###Important!!!
+####To authorize in swagger fill token field with 'Bearer <your JWT token>', because OpenAPI2 does not support JWT directly
+
+## Tech
 
 - Framework: Flask 1.1
 - ORM: SQLAlchemy
 - Authorization: Flask-JWT-extended
+- swagger2.0: flask_apispec + apispec
