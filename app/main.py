@@ -6,7 +6,7 @@ from app import config
 from app.db.db_engine import init_db
 from app.resources import Users, LogIn, LogOut, ToDosGetAllPost, ToDosGetByIdPutDelete
 from app.utils.jwt_auth import JWTAuth
-from app.utils.swagger import spec
+from app.utils.swagger import spec, update_paths_with_bearer_security_check
 
 app = Flask(__name__)
 app.config.from_object(config)
@@ -29,6 +29,12 @@ docs.register(LogOut)
 docs.register(ToDosGetAllPost)
 docs.register(ToDosGetByIdPutDelete)
 
+fields_to_add_bearer_security_check = {
+    '/logout': ('get',),
+    '/todos/{username}': ('get', 'post'),
+    '/todos/{username}/{todo_id}': ('get', 'put', 'delete')
+}
+update_paths_with_bearer_security_check(spec, fields_to_add_bearer_security_check)
 
 if __name__ == '__main__':
     init_db()

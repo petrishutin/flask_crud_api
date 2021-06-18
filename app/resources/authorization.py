@@ -3,6 +3,7 @@ from flask_jwt_extended import create_access_token, jwt_required, get_jwt
 from flask_restful import Resource
 from flask_apispec import MethodResource, use_kwargs
 from flask_apispec.annotations import doc
+from marshmallow import fields
 
 from app.db.db_utils import get_user_instance
 from app.schemas import UserLogInSchema
@@ -21,6 +22,7 @@ class LogIn(Resource, MethodResource):
 
 class LogOut(Resource, MethodResource):
     @doc(tags=['LogOut'], description='method to logout')
+    # @use_kwargs({'security': fields.String()}, location='header')
     @jwt_required()
     def get(self):
         """LogOut"""

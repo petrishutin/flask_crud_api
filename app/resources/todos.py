@@ -6,7 +6,7 @@ from flask_apispec.annotations import doc
 
 from app.db.db_utils import get_todo, get_todos, create_new_todo, update_todo, delete_todo
 from app.utils.utils import check_username_match_resource_name
-from app.schemas import ToDoSchemaIn, ToDoReadSchemaOut, ToDoCreateUpdateDeleteSchemaOut, UserNameSchemaIn
+from app.schemas import ToDoSchemaIn, ToDoReadSchemaOut, ToDoCreateUpdateDeleteSchemaOut
 
 
 class ToDosGetByIdPutDelete(Resource, MethodResource):
